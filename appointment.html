@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Book Appointment</title>
+  <link rel="stylesheet" href="appointment.css">
+</head>
+<body>
+  <!-- Navbar -->
+  <nav class="navbar">
+    <a href="index.html" class="nav-logo">HealthConnect</a>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="index.html">Team</a></li>
+      <li><a href="index.html">Services</a></li>
+      <li><a href="index.html">Testimonials</a></li>
+      <li class="nav-right">
+        <span id="userGreeting">
+          <a href="login.html">Login</a> / <a href="register.html">Register</a>
+        </span>
+        <button id="hamburger" class="hamburger">&#9776;</button>
+        <div class="hamburger-menu" id="hamburgerMenu">
+          <a href="profile.html">View Profile</a>
+          <a href="appointment.html">Your Appointments</a>
+          <a href="#" id="logout">Logout</a>
+        </div>
+      </li>
+    </ul>
+  </nav>
+
+  <!-- Hero Section -->
+  <header class="hero" id="home">
+    <h1>Welcome to HealthConnect</h1>
+    <p>Your One-Stop Digital Healthcare Platform</p>
+  </header>
+  <div class="booking-container">
+    <h2>Book an Appointment</h2>
+
+    <label for="specialization">Select Specialization:</label>
+    <select id="specialization" class="select">
+      <option value="All">All Specializations</option>
+      <option value="Neurologist">Neurologist</option>
+      <option value="Cardiologist">Cardiologist</option>
+      <option value="Oncologist">Oncologist</option>
+      <option value="Dermatologist">Dermatologist</option>
+  </select>
+
+    <label for="doctorSelect">Select Doctor:</label>
+    <select id="doctorSelect">
+      <option value="doctor">Select a doctor</option>
+      <option value="doctor">Dr. Sucheta Mudgerikar</option>
+      <option value="doctor">Dr. Shubham Patil</option>
+      <option value="doctor">Dr. Mukesh Kumar</option>
+      <option value="doctor">Dr. Bhumir Chauhan</option>
+      <option value="doctor">Dr. Vishal Jogi</option>
+      <option value="doctor">Dr. Harsh Shah</option>
+    </select>
+
+    <label for="dateSelect">Select Date:</label>
+    <input type="date" id="dateSelect" min="" />
+
+    <label for="timeslot">Select Timeslot:</label>
+    <select id="timeslot">
+      <option value="timeslot">Select a timeslot</option>
+      <option value="9:00 AM">9:00 AM</option>
+      <option value="10:00 AM">10:00 AM</option>
+      <option value="11:00 AM">11:00 AM</option>
+      <option value="12:00 PM">12:00 PM</option>
+      <option value="2:00 PM">2:00 PM</option>
+      <option value="3:00 PM">3:00 PM</option>
+      <option value="4:00 PM">4:00 PM</option>
+    </select>
+
+    <label for="waittime">Estimated Waiting Time:</label>
+    <input type="text" id="waittime" value="25 min" readonly class="readonly-box" />    
+
+    <div id="slotContainer"></div>
+
+    <button id="confirmButton">CONFIRM</button>
+    
+    <div id="confirmationMessage" class="success-message"></div>
+  </div>
+
+  <footer class="footer" id="contact">
+    <p>© 2025 HealthConnect. All rights reserved.</p>
+    <p>Contact: support@healthconnect.com</p>
+  </footer>
+
+  <script src="appointment.js"></script>
+</body>
+</html>

@@ -1,0 +1,280 @@
+/* Reset and Base Styles */
+* {
+	box-sizing: border-box;
+	margin: 0;
+	padding: 0;
+	font-family: 'Segoe UI', sans-serif;
+  }
+  
+  body {
+	line-height: 1.6;
+	color: #333;
+	background-color: #f8f9fb;
+  }
+  
+  /* Navbar */
+  .navbar {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	background-color: #0077cc;
+	padding: 15px 30px;
+	position: sticky;
+	top: 0;
+	z-index: 100;
+  }
+  
+  .nav-logo {
+	color: white;
+	font-size: 1.5rem;
+	font-weight: bold;
+	text-decoration: none; /* removes underline */
+  }
+  
+  .nav-logo:hover {
+	color: #cce6ff;
+  }
+  
+  .nav-links {
+	list-style: none;
+	display: flex;
+	gap: 25px;
+  }
+  
+  .nav-links li a {
+	text-decoration: none;
+	color: white;
+	font-weight: 500;
+	transition: color 0.3s;
+  }
+  
+  .nav-links li a:hover {
+	color: #cce6ff;
+  }
+  
+  /* Hero Section */
+  .hero {
+	background-color: #0077cc;
+	color: white;
+	padding: 60px 20px;
+	text-align: center;
+  }
+  
+  .hero h1 {
+	font-size: 2.5rem;
+	margin-bottom: 10px;
+  }
+  
+  .hero p {
+	font-size: 1.2rem;
+	margin-bottom: 20px;
+  }
+  
+  .hero button {
+	padding: 10px 20px;
+	background: white;
+	color: #0077cc;
+	border: none;
+	border-radius: 5px;
+	cursor: pointer;
+	font-size: 1rem;
+  }
+  
+  .hero button:hover {
+	background-color: #e6f0ff;
+  }
+  
+  /* Services Section */
+  .services {
+	padding: 40px 20px;
+	background-color: #f1f5f9;
+	text-align: center;
+  }
+  
+  .services h2 {
+	margin-bottom: 20px;
+	font-size: 1.8rem;
+  }
+  
+  .service-cards {
+	display: flex;
+	justify-content: center;
+	gap: 20px;
+	flex-wrap: wrap;
+	margin-top: 20px;
+  }
+  
+  .card-link {
+	background-color: white;
+	border: 2px solid #0077cc;
+	color: #0077cc;
+	padding: 20px 30px;
+	border-radius: 10px;
+	font-weight: bold;
+	text-decoration: none;
+	font-size: 1.1rem;
+	transition: background-color 0.3s, color 0.3s;
+  }
+  
+  .card-link:hover {
+	background-color: #0077cc;
+	color: white;
+  }
+  
+  /* Testimonials */
+  .testimonials {
+	padding: 40px 20px;
+	background: white;
+	text-align: center;
+  }
+  
+  .testimonials h2 {
+	margin-bottom: 20px;
+	font-size: 1.8rem;
+  }
+  
+  .testimonial {
+	margin: 20px auto;
+	max-width: 500px;
+	font-style: italic;
+  }
+  
+  /* Footer */
+  .footer {
+	background-color: #0077cc;
+	color: white;
+	text-align: center;
+	padding: 20px;
+	font-size: 0.9rem;
+  }
+  
+  /* Responsive Tweaks */
+  @media (max-width: 600px) {
+	.nav-links {
+	  flex-direction: column;
+	  gap: 10px;
+	  align-items: flex-end;
+	}
+  
+	.hero h1 {
+	  font-size: 2rem;
+	}
+  
+	.service-cards {
+	  flex-direction: column;
+	  align-items: center;
+	}
+  
+	.card-link {
+	  width: 80%;
+	  text-align: center;
+	}
+  }
+  /* Team Section */
+.team {
+	padding: 40px 20px;
+	background-color: #ffffff;
+	text-align: center;
+  }
+  
+  .team h2 {
+	margin-bottom: 30px;
+	font-size: 1.8rem;
+  }
+  
+  .team-members {
+	display: flex;
+	justify-content: center;
+	gap: 40px;
+	flex-wrap: wrap;
+  }
+  
+  .member {
+	max-width: 200px;
+  }
+  
+  .member img {
+	width: 150px;
+	height: 150px;
+	border-radius: 50%;
+	object-fit: cover;
+	margin-bottom: 10px;
+	/* Removed border */
+  }
+  
+  .member h3 {
+	margin: 10px 0 5px;
+	font-size: 1.1rem;
+  }
+  
+  .member p {
+	font-size: 0.95rem;
+	color: #555;
+  }
+
+  .hamburger {
+    display: none;
+    font-size: 24px;
+    cursor: pointer;
+    background: none;
+    border: none;
+    margin-left: auto;
+    color: #333; /* Visible color for hamburger icon */
+  }
+
+  .hamburger-menu {
+    display: none;
+    position: absolute;
+    right: 10px;
+    top: 60px;
+    background-color: #ffffff; /* Light background */
+    border: 1px solid #ccc;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    z-index: 1000;
+    min-width: 160px;
+  }
+
+  .hamburger-menu a {
+	display: block;
+	padding: 12px 16px;
+	text-decoration: none;
+	color: #000000 !important; /* Force black text */
+	font-weight: 500;
+	background-color: transparent; /* Ensure no overlap with background */
+  }
+
+  .hamburger-menu a:hover {
+    background-color: #f1f1f1;
+    color: #000000; /* Still black text on hover */
+  }
+
+  .nav-right {
+    margin-left: auto;
+    position: relative;
+  }
+  .filters {
+	display: flex;
+	gap: 15px;
+	margin-bottom: 20px;
+	flex-wrap: wrap;
+	align-items: center;
+  }
+  
+  .filters label {
+	font-weight: bold;
+  }
+  
+  .doctor-list {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 20px;
+  }
+  
+  .doctor-card {
+	background-color: #f7f7f7;
+	padding: 15px;
+	border-radius: 8px;
+	width: 300px;
+	box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+  }
+  

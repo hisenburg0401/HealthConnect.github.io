@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>HealthConnect</title>
+  <link rel="stylesheet" href="doctor_database.css" />
+</head>
+<body>
+
+  <!-- Navbar -->
+  <nav class="navbar">
+    <a href="index.html" class="nav-logo">HealthConnect</a>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="index.html">Team</a></li>
+      <li><a href="index.html">Services</a></li>
+      <li><a href="index.html">Testimonials</a></li>
+      <li class="nav-right">
+        <span id="userGreeting">
+          <a href="login.html">Login</a> / <a href="register.html">Register</a>
+        </span>
+        <button id="hamburger" class="hamburger">&#9776;</button>
+        <div class="hamburger-menu" id="hamburgerMenu">
+          <a href="profile.html">View Profile</a>
+          <a href="appointments.html">Your Appointments</a>
+          <a href="#" id="logout">Logout</a>
+        </div>
+      </li>
+    </ul>
+  </nav>
+    <!-- Hero Section -->
+    <header class="hero" id="home">
+        <h1>Doctor Locator</h1>
+        <p>By HealthConnect</p>
+      </header>
+
+    <select id="specialization" class="select">
+        <option value="All">All Specializations</option>
+        <option value="Neurologist">Neurologist</option>
+        <option value="Cardiologist">Cardiologist</option>
+        <option value="Oncologist">Oncologist</option>
+        <option value="Dermatologist">Dermatologist</option>
+    </select>
+    <select id="sortOrder" class="select">
+        <option value="priceAsc">Price: low to high</option>
+        <option value="priceDesc">Price: high to low</option>
+        <option value="yearsExpDesc">Years of Experience: high to low</option>
+        <option value="yearsExpAsc">Years of Experience: low to high</option>
+    </select>
+    <button onclick="applyFilter()" class="select">Apply Filter</button>
+    <table id="doctorTable" class="table" style="margin-top: 10px;">
+        <thead>
+            <tr class="tr">
+                <th>Specialization</th>
+                <th>Name</th>
+                <th>Consultation Fees (in Rs)</th>
+                <th>Years of Experience</th>
+                <th>Hospital (in Ahmedabad)</th>
+                <th>Location</th>
+            </tr>
+        </thead>
+        <tbody>
+        </tbody>
+    </table>
+
+    <script>
+        const doctors = [
+   
+    // Add more doctor data here in similar format
+    {"Specialization": "Cardiologist", "Name": "Dr. Sucheta Mudgerikar", "Consultation Fees(in Rs)": 1200, "Years of Experience": 39, "Hospital(in Ahmedabad)": "Apollo Hospital", "Location": "https://maps.app.goo.gl/aa7fLkNZxYPAw1yDA"},
+    {"Specialization": "Cardiologist", "Name": "Dr. Mukesh Kumar", "Consultation Fees(in Rs)": 2000, "Years of Experience": 23, "Hospital(in Ahmedabad)": "Marengo CIMS Hospital", "Location": "https://maps.app.goo.gl/aa7fLkNZxYPAw1yDA"},
+    {"Specialization": "Cardiologist", "Name": "Dr. Sameer Patel", "Consultation Fees(in Rs)": 1000, "Years of Experience": 11, "Hospital(in Ahmedabad)": "Apollo Hospital", "Location": "https://maps.app.goo.gl/aa7fLkNZxYPAw1yDA"},
+    {"Specialization": "Cardiologist", "Name": "Dr. Keval Changadiya", "Consultation Fees(in Rs)": 1500, "Years of Experience": 13, "Hospital(in Ahmedabad)": "Marengo CIMS Hospital", "Location": "https://maps.app.goo.gl/aa7fLkNZxYPAw1yDA"},
+    {"Specialization": "Cardiologist", "Name": "Dr. Sahil Patel", "Consultation Fees(in Rs)": 1500, "Years of Experience": 6, "Hospital(in Ahmedabad)": "Sahil Hospital and Neurocare Centre", "Location": "https://maps.app.goo.gl/aa7fLkNZxYPAw1yDA"},
+    {"Specialization": "Neurologist", "Name": "Dr. Vishal Jogi", "Consultation Fees(in Rs)": 1600, "Years of Experience": 15, "Hospital(in Ahmedabad)": "SETU Neurology Clinic", "Location": "https://maps.app.goo.gl/aa7fLkNZxYPAw1yDA"},
+    {"Specialization": "Neurologist", "Name": "Dr. Narendra Barad", "Consultation Fees(in Rs)": 2500, "Years of Experience": 13, "Hospital(in Ahmedabad)": "Marengo CIMS Hospital", "Location": "https://maps.app.goo.gl/aa7fLkNZxYPAw1yDA"},
+    {"Specialization": "Neurologist", "Name": "Dr. Bhumir Chauhan", "Consultation Fees(in Rs)": 1400, "Years of Experience": 13, "Hospital(in Ahmedabad)": "Mastishk Neurology Clinic", "Location": "https://maps.app.goo.gl/aa7fLkNZxYPAw1yDA"},
+    {"Specialization": "Neurologist", "Name": "Dr. Mahendra Singh Chauhan", "Consultation Fees(in Rs)": 800, "Years of Experience": 17, "Hospital(in Ahmedabad)": "Shalby Hospital", "Location": "https://maps.app.goo.gl/aa7fLkNZxYPAw1yDA"},
+    {"Specialization": "Neurologist", "Name": "Dr. Arvind Sharma", "Consultation Fees(in Rs)": 800, "Years of Experience": 0, "Hospital(in Ahmedabad)": "Zydus Hospital", "Location": "https://maps.app.goo.gl/aa7fLkNZxYPAw1yDA"},
+    {"Specialization": "Neurologist", "Name": "Dr. Dinesh S Saini", "Consultation Fees(in Rs)": 1000, "Years of Experience": 15, "Hospital(in Ahmedabad)": "Satya Neuro care", "Location": "https://maps.app.goo.gl/aa7fLkNZxYPAw1yDA"},
+    {"Specialization": "Neurologist", "Name": "Dr. Shailesh Darji", "Consultation Fees(in Rs)": 800, "Years of Experience": 10, "Hospital(in Ahmedabad)": "Care Neuro Clinic", "Location": "https://maps.app.goo.gl/aa7fLkNZxYPAw1yDA"},
+    {"Specialization": "Neurologist", "Name": "Dr. Shuchit Pandey", "Consultation Fees(in Rs)": 1200, "Years of Experience": 16, "Hospital(in Ahmedabad)": "Axon Neuro care", "Location": "https://maps.app.goo.gl/aa7fLkNZxYPAw1yDA"},
+    {"Specialization": "Neurologist", "Name": "Dr. Jignesh Prajapati", "Consultation Fees(in Rs)": 800, "Years of Experience": 10, "Hospital(in Ahmedabad)": "Vedas Cadio and Neuro Clinic", "Location": "https://maps.app.goo.gl/aa7fLkNZxYPAw1yDA"},
+    {"Specialization": "Oncologist", "Name": "Dr. Malhar Patel", "Consultation Fees(in Rs)": 1500, "Years of Experience": 15, "Hospital(in Ahmedabad)": "Marengo CIMS Hospital", "Location": "https://maps.app.goo.gl/aa7fLkNZxYPAw1yDA"},
+    {"Specialization": "Oncologist", "Name": "Dr. Jay Prakash Neema", "Consultation Fees(in Rs)": 1100, "Years of Experience": 39, "Hospital(in Ahmedabad)": "Apollo Hospital", "Location": "https://maps.app.goo.gl/aa7fLkNZxYPAw1yDA"},
+    {"Specialization": "Oncologist", "Name": "Dr. Harsh Shah", "Consultation Fees(in Rs)": 1300, "Years of Experience": 16, "Hospital(in Ahmedabad)": "Apollo Hospital", "Location": "https://maps.app.goo.gl/aa7fLkNZxYPAw1yDA"},
+    {"Specialization": "Oncologist", "Name": "Dr. Chirag Amin", "Consultation Fees(in Rs)": 1100, "Years of Experience": 19, "Hospital(in Ahmedabad)": "Apollo Hospital", "Location": "https://maps.app.goo.gl/aa7fLkNZxYPAw1yDA"},
+    {"Specialization": "Dermatologist", "Name": "Dr. Rupa Tejas Shah", "Consultation Fees(in Rs)": 1000, "Years of Experience": 32, "Hospital(in Ahmedabad)": "Silk Skin Laser Cosmetology Clinic", "Location": "https://maps.app.goo.gl/aa7fLkNZxYPAw1yDA"},
+    {"Specialization": "Dermatologist", "Name": "Dr. Meeta Desai", "Consultation Fees(in Rs)": 800, "Years of Experience": 23, "Hospital(in Ahmedabad)": "The Skin Sense", "Location": "https://maps.app.goo.gl/aa7fLkNZxYPAw1yDA"},
+    {"Specialization": "Dermatologist", "Name": "Dr. Hiral Dineshbhai Patel", "Consultation Fees(in Rs)": 700, "Years of Experience": 8, "Hospital(in Ahmedabad)": "Oliva Skin and Hair Clinic", "Location": "https://maps.app.goo.gl/aa7fLkNZxYPAw1yDA"},
+    {"Specialization": "Dermatologist", "Name": "Dr. Surbhi Balani", "Consultation Fees(in Rs)": 1000, "Years of Experience": 3, "Hospital(in Ahmedabad)": "Adorn Cosmetic Clinic", "Location": "https://maps.app.goo.gl/aa7fLkNZxYPAw1yDA"},
+    {"Specialization": "Dermatologist", "Name": "Dr. Hiren N Patel", "Consultation Fees(in Rs)": 400, "Years of Experience": 21, "Hospital(in Ahmedabad)": "Shreeji Skin Care Clinic", "Location": "https://maps.app.goo.gl/aa7fLkNZxYPAw1yDA"},
+    // ... continue with other entries in similar format
+];
+
+
+        function applyFilter() {
+            var specSelect = document.getElementById('specialization').value;
+            var sortOrder = document.getElementById('sortOrder').value;
+            var filteredDoctors = doctors.filter(function(doctor) {
+                return doctor.Specialization === specSelect || specSelect === "All";
+            });
+
+            switch (sortOrder) {
+                case 'priceAsc':
+                    filteredDoctors.sort((a, b) => a["Consultation Fees(in Rs)"] - b["Consultation Fees(in Rs)"]);
+                    break;
+                case 'priceDesc':
+                    filteredDoctors.sort((a, b) => b["Consultation Fees(in Rs)"] - a["Consultation Fees(in Rs)"]);
+                    break;
+                case 'yearsExpDesc':
+                    filteredDoctors.sort((a, b) => b["Years of Experience"] - a["Years of Experience"]);
+                    break;
+                case 'yearsExpAsc':
+                    filteredDoctors.sort((a, b) => a["Years of Experience"] - b["Years of Experience"]);
+                    break;
+            }
+
+            displayDoctors(filteredDoctors);
+        }
+
+        function displayDoctors(doctors) {
+            const tableBody = document.getElementById('doctorTable').getElementsByTagName('tbody')[0];
+            tableBody.innerHTML = '';
+            doctors.forEach(doctor => {
+                let row = tableBody.insertRow();
+                Object.values(doctor).forEach(text => {
+                    let cell = row.insertCell();
+                    cell.textContent = text;
+                });
+            });
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Medicine Booking</title>
+  <link rel="stylesheet" href="medicine_2.css">
+</head>
+<body>
+  <nav class="navbar">
+    <a href="index.html" class="nav-logo">HealthConnect</a>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="index.html">Team</a></li>
+      <li><a href="index.html">Services</a></li>
+      <li><a href="index.html">Testimonials</a></li>
+      <li class="nav-right">
+        <span id="userGreeting">
+          <a href="login.html">Login</a> / <a href="register.html">Register</a>
+        </span>
+        <button id="hamburger" class="hamburger">&#9776;</button>
+        <div class="hamburger-menu" id="hamburgerMenu">
+          <a href="profile.html">View Profile</a>
+          <a href="appointment.html">Your Appointments</a>
+          <a href="#" id="logout">Logout</a>
+        </div>
+      </li>
+    </ul>
+  </nav>
+
+  <header class="hero" id="home">
+    <h1>Welcome to HealthConnect</h1>
+    <p>Your One-Stop Digital Healthcare Platform</p>
+  </header>
+
+  <div class="container">
+    <h2>Medicine Booking and Delivery</h2>
+
+    <div class="toggle-buttons">
+      <button onclick="showSection('book')">Book Medicine</button>
+      <button onclick="showSection('upload')">Upload Prescription</button>
+    </div>
+
+    <div id="bookSection" class="section">
+      <input type="text" id="searchBar" placeholder="Search Medicine..." oninput="renderMedicines()">
+      <div id="medicineList" class="medicine-list"></div>
+
+      <div id="pagination" class="pagination"></div>
+
+      <!-- ✅ Wrapped View Cart button -->
+      <div class="view-cart-wrapper">
+        <button onclick="viewCart()" class="view-cart-btn">View My Cart</button>
+      </div>
+
+      <div id="cartModal" class="cart-modal">
+        <h3>Your Cart</h3>
+        <div id="cartItems"></div>
+        <!-- ✅ Added class close-cart-btn -->
+        <button onclick="closeCart()" class="close-cart-btn">Pay Now</button>
+      </div>
+    </div>
+
+	<div id="uploadSection" class="section hidden">
+		<label for="prescriptionUpload">Upload Prescription:</label>
+		<input type="file" id="prescriptionUpload" accept="image/*,application/pdf"/>
+		<label for="deliveryAddress">Delivery Address:</label>
+		<textarea id="deliveryAddress" rows="4" placeholder="Enter your delivery address"></textarea>
+		<label for="deliveryTime">Preferred Delivery Time:</label>
+		<input type="time" id="deliveryTime" />
+		<!-- ✅ Centered and styled Confirm Order button -->
+		<div class="view-cart-wrapper">
+		  <button onclick="confirmUploadOrder()" class="view-cart-btn">Confirm Order</button>
+		</div>
+		<p id="uploadConfirmation" class="confirmation-text"></p>
+	</div>
+  </div>
+  <footer class="footer">
+    <p>© 2025 HealthConnect. All rights reserved.</p>
+    <p>Contact: support@healthconnect.com</p>
+  </footer>
+
+  <script src="medicine_2.js"></script>
+</body>
+</html>

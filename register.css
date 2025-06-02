@@ -1,0 +1,83 @@
+body {
+	font-family: Arial, sans-serif;
+	background: #f0f4f8;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	height: 100vh;
+	margin: 0;
+  }
+  
+  .register-container {
+	background-color: white;
+	padding: 40px;
+	border-radius: 12px;
+	box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+	width: 100%;
+	max-width: 500px;
+	text-align: center;
+  }
+  
+  h2 {
+	margin-bottom: 24px;
+	color: #0077cc;
+  }
+  
+  input[type="text"],
+  input[type="number"],
+  input[type="email"],
+  input[type="password"],
+  select {
+	width: 100%;
+	padding: 12px;
+	margin: 10px 0 20px;
+	border: 1px solid #ccc;
+	border-radius: 6px;
+	box-sizing: border-box;
+  }
+  
+  button {
+	background-color: #0077cc;
+	color: white;
+	border: none;
+	padding: 12px 20px;
+	font-size: 1rem;
+	border-radius: 6px;
+	cursor: pointer;
+	width: 100%;
+	transition: background-color 0.3s ease;
+  }
+  
+  button:hover {
+	background-color: #005fa3;
+  }
+  
+  label {
+	display: block;
+	text-align: left;
+	margin-bottom: 6px;
+	font-weight: bold;
+	color: #333;
+  }
+  
+  .form-group {
+	margin-bottom: 16px;
+	text-align: left;
+  }
+  .login-container p,
+  .register-container p {
+	font-size: 0.9rem;
+	color: #555;
+  }
+  
+  .login-container a,
+  .register-container a {
+	color: #0077cc;
+	text-decoration: none;
+  }
+  
+  .login-container a:hover,
+  .register-container a:hover {
+	text-decoration: underline;
+  }
+	

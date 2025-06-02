@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>HealthConnect</title>
+  <link rel="stylesheet" href="doctor_database.css" />
+</head>
+<body>
+
+  <!-- Navbar -->
+  <nav class="navbar">
+    <a href="index.html" class="nav-logo">HealthConnect</a>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="index.html">Team</a></li>
+      <li><a href="index.html">Services</a></li>
+      <li><a href="index.html">Testimonials</a></li>
+      <li class="nav-right">
+        <span id="userGreeting">
+          <a href="login.html">Login</a> / <a href="register.html">Register</a>
+        </span>
+        <button id="hamburger" class="hamburger">&#9776;</button>
+        <div class="hamburger-menu" id="hamburgerMenu">
+          <a href="profile.html">View Profile</a>
+          <a href="appointments.html">Your Appointments</a>
+          <a href="#" id="logout">Logout</a>
+        </div>
+      </li>
+    </ul>
+  </nav>
+    <!-- Hero Section -->
+    <header class="hero" id="home">
+        <h1>Diagnostic Price Checker</h1>
+        <p>By HealthConnect</p>
+      </header>
+    <select id="testSelect" class="select">
+        <option value="All">All Tests</option>
+        <option value="2D Echo">2D Echo</option>
+        <option value="Stress Test">Stress Test</option>
+        <option value="Lipid Profile">Lipid Profile</option>
+        <option value="Prolactin Test">Prolactin Test</option>
+        <option value="C-Reactive Protein (CRP) Test">C-Reactive Protein (CRP) Test</option>
+        <option value="ECG">ECG</option>
+    </select>
+    <select id="sortOrder" class="select">
+        <option value="costAsc">Cost: low to high</option>
+        <option value="costDesc">Cost: high to low</option>
+    </select>
+    <button onclick="applyFilter()" class="select">Apply Filter</button>
+    
+    <div class="average-cost" id="averageCost" style="color: red;"></div>
+
+    <table id="testTable" class="table">
+        <thead>
+            <tr class="tr">
+                <th>Test</th>
+                <th>Hospital</th>
+                <th>Cost (in Rs)</th>
+                <th>Location</th>
+            </tr>
+        </thead>
+        <tbody>
+        </tbody>
+    </table>
+
+    <script>
+        
+
+        const medicalTests = [
+    {"Test": "2D Echo", "Hospital": "Trisha Multispeciality Hospital", "Cost": 1500, "Location": "West"},
+    {"Test": "2D Echo", "Hospital": "Sangini Hospital", "Cost": 1500, "Location": "West"},
+    {"Test": "2D Echo", "Hospital": "House of Imaging", "Cost": 1800, "Location": "East"},
+    {"Test": "2D Echo", "Hospital": "Exo Path Labs [Maninagar]", "Cost": 1500, "Location": "North"},
+    {"Test": "2D Echo", "Hospital": "Stay Well Health Solution", "Cost": 1500, "Location": "Central"},
+    {"Test": "2D Echo", "Hospital": "Sanya Diagnostics", "Cost": 1800, "Location": "South"},
+    {"Test": "2D Echo", "Hospital": "Laxmi Hospital & Diagnostic Center", "Cost": 1200, "Location": "West"},
+    {"Test": "2D Echo", "Hospital": "Aastha Oncology Associates", "Cost": 2000, "Location": "East"},
+    {"Test": "2D Echo", "Hospital": "Spectrum Healthcare", "Cost": 1400, "Location": "North"},
+    {"Test": "2D Echo", "Hospital": "Scientific Diagnostic Center (Chotila)", "Cost": 1200, "Location": "Central"},
+    {"Test": "2D Echo", "Hospital": "CIMS Hospital", "Cost": 1750, "Location": "South"},
+    {"Test": "2D Echo", "Hospital": "Mfine Diagnostic", "Cost": 1500, "Location": "West"},
+    {"Test": "2D Echo", "Hospital": "Medintu", "Cost": 1800, "Location": "East"},
+    {"Test": "2D Echo", "Hospital": "Platinum Diagnostic Centre", "Cost": 2250, "Location": "North"},
+    {"Test": "2D Echo", "Hospital": "Zydus Hospital", "Cost": 2000, "Location": "South"},
+    {"Test": "2D Echo", "Hospital": "Apollo Hospital", "Cost": 2200, "Location": "West"},
+    {"Test": "2D Echo", "Hospital": "Sterling Hospital", "Cost": 1800, "Location": "East"},
+    {"Test": "2D Echo", "Hospital": "Shalby Hospital", "Cost": 2500, "Location": "North"},
+    {"Test": "2D Echo", "Hospital": "Imaging World", "Cost": 1800, "Location": "Central"},
+    {"Test": "2D Echo", "Hospital": "Sal Hospital", "Cost": 1500, "Location": "South"},
+    {"Test": "2D Echo", "Hospital": "KD Hospital", "Cost": 1800, "Location": "West"},
+    {"Test": "2D Echo", "Hospital": "BAPS Hospital", "Cost": 1500, "Location": "East"},
+    {"Test": "2D Echo", "Hospital": "Medilink Hospital", "Cost": 2100, "Location": "North"},
+    {"Test": "2D Echo", "Hospital": "Asian Heart Hospital", "Cost": 1900, "Location": "South"},
+    {"Test": "2D Echo", "Hospital": "Pulse Diagnostic", "Cost": 1700, "Location": "West"},
+    {"Test": "Stress Test", "Hospital": "Sangini Hospital", "Cost": 1500, "Location": "East"},
+    {"Test": "Stress Test", "Hospital": "Balaji Pathology Laboratory", "Cost": 750, "Location": "North"},
+    {"Test": "Stress Test", "Hospital": "Dr. Jivraj Mehta Smarak Pathology Lab", "Cost": 700, "Location": "Central"},
+    {"Test": "Stress Test", "Hospital": "Aavkar Pathology Laboratory", "Cost": 900, "Location": "South"},
+    {"Test": "Stress Test", "Hospital": "Samir Pathology Laboratory", "Cost": 700, "Location": "West"},
+    {"Test": "Stress Test", "Hospital": "Swasthya Clinic & Hospital", "Cost": 950, "Location": "East"},
+    {"Test": "Stress Test", "Hospital": "APL Diagnostic Expert", "Cost": 900, "Location": "North"},
+    {"Test": "Stress Test", "Hospital": "Anand Surgical Hospital", "Cost": 650, "Location": "Central"},
+    {"Test": "Stress Test", "Hospital": "Star Hospital", "Cost": 1000, "Location": "South"},
+    {"Test": "Stress Test", "Hospital": "Iqraa Hospital", "Cost": 800, "Location": "West"},
+    {"Test": "Stress Test", "Hospital": "Nidhi Hospital", "Cost": 1500, "Location": "East"},
+    {"Test": "Stress Test", "Hospital": "CIMS Hospital", "Cost": 1800, "Location": "North"},
+    {"Test": "Stress Test", "Hospital": "Apollo Hospitals", "Cost": 2200, "Location": "South"},
+    {"Test": "Stress Test", "Hospital": "Zydus Hospitals", "Cost": 2000, "Location": "West"},
+    {"Test": "Stress Test", "Hospital": "Sterling Hospitals", "Cost": 1800, "Location": "East"},
+    {"Test": "Stress Test", "Hospital": "Shalby Hospitals", "Cost": 2500, "Location": "North"},
+    {"Test": "Stress Test", "Hospital": "Pulse Diagnostic Center", "Cost": 1700, "Location": "Central"},
+    {"Test": "Stress Test", "Hospital": "KD Hospital", "Cost": 1600, "Location": "South"},
+    {"Test": "Stress Test", "Hospital": "BAPS Hospital", "Cost": 1500, "Location": "West"},
+    {"Test": "Stress Test", "Hospital": "Arihant Heart Care", "Cost": 1600, "Location": "East"},
+    {"Test": "Stress Test", "Hospital": "Sanya Diagnostics", "Cost": 900, "Location": "North"},
+    {"Test": "Stress Test", "Hospital": "Apex Heart Institute", "Cost": 2000, "Location": "Central"},
+    {"Test": "Stress Test", "Hospital": "Akshar Imaging", "Cost": 1750, "Location": "South"},
+    {"Test": "Stress Test", "Hospital": "Shreeji Medical Center", "Cost": 1550, "Location": "West"},
+    {"Test": "Lipid Profile", "Hospital": "Exo Lab", "Cost": 450, "Location": "East"},
+    {"Test": "Lipid Profile", "Hospital": "Sadhana Diagnostic Centre", "Cost": 500, "Location": "North"},
+    {"Test": "Lipid Profile", "Hospital": "Ampligene Diagnostic Pvt Ltd", "Cost": 500, "Location": "Central"},
+    {"Test": "Lipid Profile", "Hospital": "Dr. Lal Path Labs", "Cost": 500, "Location": "South"},
+    {"Test": "Lipid Profile", "Hospital": "Khushi Pathology Laboratory", "Cost": 400, "Location": "West"},
+    {"Test": "Lipid Profile", "Hospital": "Usmanpura Imaging Centre", "Cost": 495, "Location": "East"},
+    {"Test": "Lipid Profile", "Hospital": "Stay Well Health Solution", "Cost": 230, "Location": "North"},
+    {"Test": "Lipid Profile", "Hospital": "Shakti Pathology Laboratory", "Cost": 450, "Location": "Central"},
+    {"Test": "Lipid Profile", "Hospital": "Sanya Diagnostics", "Cost": 450, "Location": "South"},
+    {"Test": "Lipid Profile", "Hospital": "Satyam Diagnostic Pathology", "Cost": 450, "Location": "West"},
+    {"Test": "Lipid Profile", "Hospital": "Amijyot Pathology Laboratory", "Cost": 450, "Location": "East"},
+    {"Test": "Lipid Profile", "Hospital": "Saibaba Pathology Laboratory", "Cost": 400, "Location": "North"},
+    {"Test": "Lipid Profile", "Hospital": "Bharat Pathology Laboratory", "Cost": 500, "Location": "Central"},
+    // Add more medical test data here in similar format
+];
+
+
+        function applyFilter() {
+            var testSelect = document.getElementById('testSelect').value;
+            var sortOrder = document.getElementById('sortOrder').value;
+
+            // Filter tests based on selected test
+            var filteredTests = medicalTests.filter(function(test) {
+                return test.Test === testSelect || testSelect === "All";
+            });
+
+            // Sort based on selected order
+            if (sortOrder === 'costAsc') {
+                filteredTests.sort((a, b) => a.Cost - b.Cost);
+            } else if (sortOrder === 'costDesc') {
+                filteredTests.sort((a, b) => b.Cost - a.Cost);
+            }
+
+            displayTests(filteredTests);
+        }
+
+        function displayTests(tests) {
+            const tableBody = document.getElementById('testTable').getElementsByTagName('tbody')[0];
+            tableBody.innerHTML = ''; // Clear previous results
+            let totalCost = 0;
+
+            tests.forEach(test => {
+                let row = tableBody.insertRow();
+                Object.values(test).forEach(text => {
+                    let cell = row.insertCell();
+                    cell.textContent = text;
+                });
+                totalCost += test.Cost; // Calculate total cost
+            });
+
+            // Calculate and display average cost
+            const averageCostDiv = document.getElementById('averageCost');
+            if (tests.length > 0) {
+                const averageCost = (totalCost / tests.length).toFixed(2);
+                averageCostDiv.textContent = `Average Cost: Rs ${averageCost}`;
+            } else {
+                averageCostDiv.textContent = 'Average Cost: N/A';
+            }
+        }
+    </script>
+</body>
+</html>
